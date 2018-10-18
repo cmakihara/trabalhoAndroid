@@ -23,4 +23,16 @@
 
 	</string>
 
+    <string name="sql_create_tables_urna">
+         CREATE TABLE urna	(
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                nome VARCHAR(100) NOT NULL,
+                categoria VARCHAR(100) NOT NULL,
+                idCategoria INTEGER NOT NULL,
+                estado VARCHAR(100) NOT NULL,
+                voto INTEGER NOT NULL
+        )
+
+	</string>
+
 </resources>

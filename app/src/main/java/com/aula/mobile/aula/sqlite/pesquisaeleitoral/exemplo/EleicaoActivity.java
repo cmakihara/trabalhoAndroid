@@ -11,10 +11,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aula.mobile.aula.R;
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.dao.DbHelper;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Categoria;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.CandidatoHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.CategoriaHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.VotoHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EleicaoActivity extends AppCompatActivity {
@@ -32,6 +33,10 @@ public class EleicaoActivity extends AppCompatActivity {
         CategoriaHelper categoriaHelper = new CategoriaHelper(this);
         if (categoriaHelper.count() == 0)
             categoriaHelper.add();
+        /***********************/
+        VotoHelper votoHelper = new VotoHelper(this);
+        if (votoHelper.count() == 0)
+            votoHelper.add();
         /***********************/
 
         final Spinner spCategoria = findViewById(R.id.spCategoria);
@@ -54,8 +59,11 @@ public class EleicaoActivity extends AppCompatActivity {
 
         btResultado.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Implementar", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                Categoria categoria = (Categoria) spCategoria.getSelectedItem();
+                Intent intent = new Intent(EleicaoActivity.this, ResultadoActivity.class);
+                intent.putExtra("id", categoria.getId());
+                startActivity(intent);
             }
         });
     }

@@ -1,15 +1,11 @@
-package com.aula.mobile.aula.sqlite.pesquisaeleitoral.dao;
+package com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.aula.mobile.aula.R;
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Categoria;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -27,6 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(mContext.getString(R.string.sql_create_table_cand));
         db.execSQL(mContext.getString(R.string.sql_create_tables_cat));
+        db.execSQL(mContext.getString(R.string.sql_create_tables_urna));
     }
 
     @Override

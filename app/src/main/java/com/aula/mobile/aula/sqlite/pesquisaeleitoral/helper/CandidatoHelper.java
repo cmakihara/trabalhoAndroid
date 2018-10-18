@@ -1,10 +1,10 @@
-package com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo;
+package com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.dao.DbHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.DbHelper;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Candidato;
 
 import java.util.ArrayList;
@@ -36,16 +36,21 @@ public class CandidatoHelper {
     }
 
     public void add() {
-        insert("Jair Bolsonaro", "PSL", ECategoria.PRESIDENTE.getId());
-        insert("Fernando Haddad", "PT", ECategoria.PRESIDENTE.getId());
-        insert("Ciro Gomes", "PDT", ECategoria.PRESIDENTE.getId());
-        insert("Geraldo Alckmin", "PSBD", ECategoria.PRESIDENTE.getId());
+        insert("Jair Bolsonaro", "PSL", 1);
+        insert("Fernando Haddad", "PT",1);
+        insert("Ciro Gomes", "PDT", 1);
+        insert("Geraldo Alckmin", "PSBD", 1);
         //
-        insert("Ratinho JR", "PSD", ECategoria.GOVERNADOR_PR.getId());
-        insert("Cida", "PP", ECategoria.GOVERNADOR_PR.getId());
-        insert("João Arruda", "MDB", ECategoria.GOVERNADOR_PR.getId());
+        insert("Ratinho JR", "PSD",2);
+        insert("Cida", "PP", 2);
+        insert("João Arruda", "MDB", 2);
 
-       // insert("Requijão","AA","3");
+        insert("Doria","PSDB",3);
+        insert("Márcio França","PSB",3);
+
+        insert("Oriovisto","PODE",4);
+        insert("Beto Richa","PSDB",4);
+        insert("Requião","MDB",4);
     }
 
     private void insert(String nome, String partido, int idCategoria) {

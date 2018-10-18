@@ -13,7 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aula.mobile.aula.R;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.CandidatoHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.CategoriaHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.DbHelper;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Candidato;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Categoria;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.VotoHelper;
 
 import java.util.List;
 
@@ -22,6 +27,9 @@ public class EleicaoVotoActivity extends AppCompatActivity {
     private ListView listView;
     private TextView tvText;
     EleicaoVotoActivity activity = this;
+
+    private DbHelper dbHelper;
+    public static final String TABLE_CATEGORIA = "categoria";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,12 +40,15 @@ public class EleicaoVotoActivity extends AppCompatActivity {
         tvText = findViewById(R.id.tvText);
 
         int idCategoria = this.getIntent().getIntExtra("id", 0);
-        ECategoria eCategoria = ECategoria.getById(idCategoria);
-        tvText.setText("Pesquisa para: " + eCategoria.getNome() + " - " + eCategoria.getEstado());
+
+        CategoriaHelper categoriaHelper = new CategoriaHelper(this);
+
+        List<Categoria> categorias = categoriaHelper.getList();
+        tvText.setText("Pesquisa para: " + categorias.get(idCategoria-1).getNome() + " - " + categorias.get(idCategoria-1).getEstado());
 
 
         CandidatoHelper candidatoHelper = new CandidatoHelper(this);
-        List<Candidato> candidatos = candidatoHelper.getList(eCategoria.getId());
+        List<Candidato> candidatos = candidatoHelper.getList(idCategoria);
 
         ArrayAdapter<Candidato> adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, candidatos);
@@ -47,7 +58,7 @@ public class EleicaoVotoActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Candidato item = (Candidato) parent.getItemAtPosition(position);
+                final Candidato item = (Candidato) parent.getItemAtPosition(position);
                 new AlertDialog.Builder(activity)
                         .setIcon(R.drawable.ic_vote)
                         .setTitle("Pesquisa eleitoral")
@@ -55,7 +66,9 @@ public class EleicaoVotoActivity extends AppCompatActivity {
                         .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "Implementar", Toast.LENGTH_SHORT).show();
+                                VotoHelper votoHelper = new VotoHelper(EleicaoVotoActivity.this);
+                                votoHelper.votar(item.getNome().toString());
+
                             }
 
                         })

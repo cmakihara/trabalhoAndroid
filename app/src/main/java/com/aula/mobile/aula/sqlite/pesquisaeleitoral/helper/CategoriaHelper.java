@@ -1,10 +1,10 @@
-package com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo;
+package com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.dao.DbHelper;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.helper.DbHelper;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.entity.Categoria;
 
 import java.util.ArrayList;
