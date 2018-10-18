@@ -75,9 +75,31 @@ public class VotoHelper {
     }
 
     public void votar(String nome) {
+        int qtdVotoAnterior = buscaVoto(nome);
+
         ContentValues values = new ContentValues();
-        values.put("voto" , 5);
+        values.put("voto" , qtdVotoAnterior+1);
         dbHelper.getWritableDatabase().update("urna",values,"nome = '"+nome+"'", null);
 
+    }
+
+    private int buscaVoto(String nomeCand) {
+        List<Voto> list = new ArrayList<>(0);
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM urna WHERE nome ='"+ nomeCand+"'" , null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int ID = cursor.getInt(cursor.getColumnIndex("id"));
+                String nome = cursor.getString(cursor.getColumnIndex("nome"));
+                String categoria = cursor.getString(cursor.getColumnIndex("categoria"));
+                int idCategoriaVoto = cursor.getInt(cursor.getColumnIndex("idCategoria"));
+                String estado = cursor.getString(cursor.getColumnIndex("estado"));
+                int voto = cursor.getInt(cursor.getColumnIndex("voto"));
+                list.add(new Voto(ID,nome,categoria, idCategoriaVoto, estado, voto));
+                cursor.moveToNext();
+            }
+        }
+        int num = list.get(0).getVoto();
+
+        return num;
     }
 }
