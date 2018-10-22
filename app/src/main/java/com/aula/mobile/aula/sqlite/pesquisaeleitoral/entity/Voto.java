@@ -74,6 +74,6 @@ public class Voto {
 
     @Override
     public String toString() {
-        return  nome + " " + categoria + " " + estado + " " + voto;
+        return "Candidato: " + nome + " " + " Votos:  " + voto;
     }
 }

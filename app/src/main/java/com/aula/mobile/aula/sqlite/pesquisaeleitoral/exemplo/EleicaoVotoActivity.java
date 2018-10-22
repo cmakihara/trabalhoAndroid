@@ -1,6 +1,7 @@
 package com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo;
 
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -68,6 +69,8 @@ public class EleicaoVotoActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 VotoHelper votoHelper = new VotoHelper(EleicaoVotoActivity.this);
                                 votoHelper.votar(item.getNome().toString());
+                                MediaPlayer player=MediaPlayer.create(EleicaoVotoActivity.this,R.raw.confirma);
+                                player.start();
 
                             }
 
